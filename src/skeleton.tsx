@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
 export const defaultBaseColor = '#eee';
@@ -29,7 +29,14 @@ export const skeletonClass = css`
   width: 100%;
 `;
 
-export const SkeletonBase = styled.span`
+interface SkeletonBaseProps {
+  height: number;
+  width: number;
+  duration?: number;
+  circle: boolean;
+}
+
+export const SkeletonBase = styled.span<SkeletonBaseProps>`
   ${skeletonClass};
   height: ${props => props.height}px;
   width: ${props => props.width}px;
@@ -46,37 +53,40 @@ export const SkeletonBase = styled.span`
       : '4px'};
 `;
 
-export default class Skeleton extends Component {
-  static defaultProps = {
-    count: 1,
-    duration: 1.2,
-    width: null,
-    wrapper: null,
-    height: null,
-    circle: false,
-  };
+interface SkeletonProps extends SkeletonBaseProps {
+  count: number;
+  wrapper: React.ComponentType;
+}
 
-  render() {
-    const elements = [];
-    for (let i = 0; i < this.props.count; i++) {
-      elements.push(
-        <SkeletonBase
-          key={i}
-          height={this.props.height}
-          circle={this.props.circle}
-          width={this.props.width}
-          duration={this.props.duration}
-        />,
-      );
-    }
-
-    const Wrapper = this.props.wrapper;
-    return (
-      <span>
-        {Wrapper
-          ? elements.map((element, i) => <Wrapper key={i}>{element}</Wrapper>)
-          : elements}
-      </span>
+export default function Skeleton(props: SkeletonProps) {
+  const elements = [];
+  for (let i = 0; i < props.count; i++) {
+    elements.push(
+      <SkeletonBase
+        key={i}
+        height={props.height}
+        circle={props.circle}
+        width={props.width}
+        duration={props.duration}
+      />,
     );
   }
+
+  const Wrapper = props.wrapper;
+  return (
+    <span>
+      {Wrapper
+        ? elements.map((element, i) => <Wrapper key={i}>{element}</Wrapper>)
+        : elements}
+    </span>
+  );
 }
+
+Skeleton.defaultProps = {
+  count: 1,
+  duration: 1.2,
+  width: null,
+  wrapper: null,
+  height: null,
+  circle: false,
+};
