@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { css, keyframes } from "emotion";
+import React, { Component } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 
-export const defaultBaseColor = "#eee";
+export const defaultBaseColor = '#eee';
 
-export const defaultHighlightColor = "#f5f5f5";
+export const defaultHighlightColor = '#f5f5f5';
 
 export const skeletonKeyframes = keyframes`
   0% {
@@ -24,10 +24,26 @@ export const skeletonClass = css`
   );
   background-size: 200px 100%;
   background-repeat: no-repeat;
-  border-radius: 4px;
   display: inline-block;
   line-height: 1;
   width: 100%;
+`;
+
+export const SkeletonBase = styled.span`
+  ${skeletonClass};
+  height: ${props => props.height}px;
+  width: ${props => props.width}px;
+  ::before {
+    content: ' ';
+  }
+  white-space: pre-wrap;
+  animation: ${skeletonKeyframes} ease-in-out infinite
+    ${props => props.duration}s;
+
+  border-radius: ${props =>
+    props.width !== null && props.height !== null && props.circle
+      ? '50%'
+      : '4px'};
 `;
 
 export default class Skeleton extends Component {
@@ -37,31 +53,20 @@ export default class Skeleton extends Component {
     width: null,
     wrapper: null,
     height: null,
-    circle: false
+    circle: false,
   };
 
   render() {
     const elements = [];
     for (let i = 0; i < this.props.count; i++) {
-      let style = {
-        animation:
-          `${skeletonKeyframes} ` +
-          String(this.props.duration) +
-          "s ease-in-out infinite"
-      };
-      if (this.props.width != null) {
-        style.width = this.props.width;
-      }
-      if (this.props.height != null) {
-        style.height = this.props.height;
-      }
-      if (this.props.width !== null && this.props.height !== null && this.props.circle) {
-        style.borderRadius = '50%';
-      }
       elements.push(
-        <span key={i} className={skeletonClass} style={style}>
-          &zwnj;
-        </span>
+        <SkeletonBase
+          key={i}
+          height={this.props.height}
+          circle={this.props.circle}
+          width={this.props.width}
+          duration={this.props.duration}
+        />,
       );
     }
 
@@ -69,12 +74,7 @@ export default class Skeleton extends Component {
     return (
       <span>
         {Wrapper
-          ? elements.map((element, i) => (
-              <Wrapper key={i}>
-                {element}
-                &zwnj;
-              </Wrapper>
-            ))
+          ? elements.map((element, i) => <Wrapper key={i}>{element}</Wrapper>)
           : elements}
       </span>
     );

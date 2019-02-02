@@ -1,34 +1,23 @@
-import React, { Component } from "react";
-import { css } from "emotion";
+import styled from 'styled-components';
 import {
-  skeletonClass,
   defaultBaseColor,
-  defaultHighlightColor
-} from "./skeleton";
+  defaultHighlightColor,
+  SkeletonBase,
+} from './skeleton';
 
-export default class SkeletonTheme extends Component {
-  static defaultProps = {
-    color: defaultBaseColor,
-    highlightColor: defaultHighlightColor
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.themeClass = css`
-      .${skeletonClass} {
-        background-color: ${props.color};
-        background-image: linear-gradient(
-          90deg,
-          ${props.color},
-          ${props.highlightColor},
-          ${props.color}
-        );
-      }
-    `;
+const SkeletonTheme = styled.div.attrs({
+  color: defaultBaseColor,
+  highlightColor: defaultHighlightColor,
+})`
+  ${SkeletonBase} {
+    background-color: ${props => props.color};
+    background-image: linear-gradient(
+      90deg,
+      ${props => props.color},
+      ${props => props.highlightColor},
+      ${props => props.color}
+    );
   }
+`;
 
-  render() {
-    return <div className={this.themeClass}>{this.props.children}</div>;
-  }
-}
+export default SkeletonTheme;
