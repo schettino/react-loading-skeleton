@@ -6,8 +6,8 @@ import {
 } from './skeleton';
 
 const SkeletonTheme = styled.div.attrs({
-  color: defaultBaseColor,
-  highlightColor: defaultHighlightColor,
+  color: defaultBaseColor as string,
+  highlightColor: defaultHighlightColor as string,
 })`
   ${SkeletonBase} {
     background-color: ${props => props.color};

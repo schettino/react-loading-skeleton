@@ -1,4 +1,7 @@
-# react-loading-skeleton
+# styled-react-skeleton
+
+> This is a fork from
+> [react-loading-skeleton](https://github.com/dvtng/react-loading-skeleton) by David Tang
 
 Make beautiful, animated loading skeletons that automatically adapt to your app.
 
@@ -61,7 +64,7 @@ Using a `<SkeletonTheme>` component, you can easily change the colors of all
 skeleton components below it in the React hierarchy:
 
 ```javascript
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 <SkeletonTheme color="#202020" highlightColor="#444">
   <p>

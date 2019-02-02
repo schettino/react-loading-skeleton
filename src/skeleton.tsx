@@ -55,7 +55,7 @@ export const SkeletonBase = styled.span<SkeletonBaseProps>`
 
 interface SkeletonProps extends SkeletonBaseProps {
   count: number;
-  wrapper: React.ComponentType;
+  wrapper: React.ComponentType<any>;
 }
 
 export default function Skeleton(props: SkeletonProps) {

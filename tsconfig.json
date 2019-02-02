@@ -24,6 +24,6 @@
     "skipLibCheck": false,
     "strict": true
   },
-  "include": ["src"],
+  "include": ["src", "stories"],
   "exclude": ["node_modules", "build", "dist", "rollup.config.js", "**/__tests__/**"]
 }

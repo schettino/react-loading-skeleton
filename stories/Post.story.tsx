@@ -1,11 +1,11 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import SideBySide from "./SideBySide";
-import Post from "./Post";
-import { SkeletonTheme } from "../src";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import SideBySide from './SideBySide';
+import Post from './Post';
+import { SkeletonTheme } from '../src';
 
-storiesOf("Post", module)
-  .add("default", () => (
+storiesOf('Post', module)
+  .add('default', () => (
     <SideBySide>
       <Post />
       <Post title="A title">
@@ -15,7 +15,7 @@ storiesOf("Post", module)
       </Post>
     </SideBySide>
   ))
-  .add("with large size", () => (
+  .add('with large size', () => (
     <SideBySide>
       <Post size="large" />
       <Post size="large" title="A title">
@@ -25,7 +25,7 @@ storiesOf("Post", module)
       </Post>
     </SideBySide>
   ))
-  .add("with different colors", () => (
+  .add('with different colors', () => (
     <div>
       <SkeletonTheme color="#1D5CA6" highlightColor="#164999">
         <Post />
